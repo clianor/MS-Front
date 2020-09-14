@@ -15,9 +15,9 @@ const sectionStyle = css`
   background-size: cover;
   background-position: center;
   & > div {
-    background-color: rgba(0,0,0,0.5);
     border-radius: 0.5rem;
     padding: 2rem;
+    padding-bottom: 18vh; 
   }
   h4 {
     display: inline-block;
@@ -28,7 +28,7 @@ const sectionStyle = css`
   }
   p {
     display: inline-block;
-    color: #ccc;
+    color: #fff;
     font-size: 4vw;
     line-height: 5vw;
     word-break: keep-all;
@@ -49,11 +49,11 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
 
-      <Header title="마스" extra={[<Button>로그인</Button>]}/>
+      <Header title="마스" extra={[<Button key="loginBtn">로그인</Button>]}/>
       <Content>
         <section css={sectionStyle}>
           <div>
-            <h4>마이 스토어</h4>
+            <h4>마이-스토어</h4>
             <p>마스(마이스토어)는 여러분의 가게의 물류의 흐름을 추적하여 부족한 품목을 알려주는 서비스입니다.</p>
           </div>
         </section>
