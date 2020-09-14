@@ -1,0 +1,8 @@
+* { color: #333; box-sizing: border-box; }
+html, body { height: 100%; }
+body { font-family: 'Noto Sans KR', sans-serif; }
+
+.container {
+    height: 100vh;
+    min-width: 320px;
+}
