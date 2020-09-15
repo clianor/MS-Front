@@ -15,7 +15,7 @@ function LoginButton() {
   }
 
   return (
-    <Button key="loginBtn" theme="secondary" onClick={handlerClick}>
+    <Button theme="secondary" onClick={handlerClick}>
       로그인
     </Button>
   )
@@ -29,7 +29,7 @@ function RegisterButton() {
   }
 
   return (
-    <Button key="loginBtn" theme="secondary" onClick={handlerClick}>
+    <Button theme="secondary" onClick={handlerClick}>
       회원가입
     </Button>
   )
@@ -41,7 +41,7 @@ function MainLayout({children}: MainLayoutProps) {
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
       </Head>
-      <Header title="마스" extra={[<LoginButton />, <RegisterButton />]}/>
+      <Header title="마스" extra={[<LoginButton key="loginBtn" />, <RegisterButton key="registerBtn" />]}/>
       {children}
     </div>
   )

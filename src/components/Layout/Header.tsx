@@ -34,7 +34,6 @@ const HeaderExtra = em.span`
   height: 100%;
   padding: 0 1rem;
   font-size: 2rem;
-  
   & > * {
     margin-left: 1rem;
   }

@@ -1,20 +1,15 @@
 /** @jsx jsx */
-import {ReactNode} from "react";
+import {ButtonHTMLAttributes, ReactNode} from "react";
 import em from "@emotion/styled";
 import {jsx, css} from "@emotion/core";
 
-type ButtonProps = {
-  theme: "primary" | "secondary" | "tertiary";
-  onClick?: Function;
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  theme?: "primary" | "secondary" | "tertiary";
   children: ReactNode;
 }
 
-const Button = ({ children, theme="primary", onClick }: ButtonProps) => {
-  return (
-    <StyledButton onClick={onClick} css={[themes[theme]]}>
-      {children}
-    </StyledButton>
-  );
+const Button = ({ children, theme="primary", ...rest }: ButtonProps) => {
+  return <StyledButton css={[themes[theme]]} {...rest}>{children}</StyledButton>;
 }
 
 const StyledButton = em.button`
