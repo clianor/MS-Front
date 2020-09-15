@@ -1,12 +1,17 @@
 import {ReactNode} from "react";
 import em from "@emotion/styled";
 
-interface ButtonProps {
-  theme?: 'primary' | 'secondary' | 'tertiary';
+type ButtonProps = {
+  theme?: "primary" | "secondary" | "tertiary";
+  onClick?: Function;
   children?: ReactNode;
 }
 
-const ButtonStyle = em.button`
+const Button = (props: ButtonProps) => {
+  return <StyledButton onClick={props.onClick}>{props.children}</StyledButton>;
+}
+
+const StyledButton = em.button`
   outline: none;
   border: 1px solid #E6E9F4;
   box-sizing: border-box;
@@ -17,6 +22,7 @@ const ButtonStyle = em.button`
   line-height: 1;
   font-weight: 600;
   background-color: #fff;
+  cursor: pointer;
   &:focus {
     box-shadow: 0px 0px 8px rgba(87, 184, 255, 0.2);
   }
@@ -29,13 +35,5 @@ const ButtonStyle = em.button`
     color: #fff;
   }
 `;
-
-const Button = (props: ButtonProps) => {
-  return (
-    <>
-      <ButtonStyle>{props.children}</ButtonStyle>
-    </>
-  );
-}
 
 export default Button;
