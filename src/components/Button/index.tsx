@@ -5,11 +5,12 @@ import {jsx, css} from "@emotion/core";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   theme?: "primary" | "secondary" | "tertiary";
+  size?: "small" | "middle" | "big";
   children: ReactNode;
 }
 
-const Button = ({ children, theme="primary", ...rest }: ButtonProps) => {
-  return <StyledButton css={[themes[theme]]} {...rest}>{children}</StyledButton>;
+const Button = ({ children, theme="primary", size="small", ...rest }: ButtonProps) => {
+  return <StyledButton css={[themes[theme], sizes[size]]} {...rest}>{children}</StyledButton>;
 }
 
 const StyledButton = em.button`
@@ -17,7 +18,6 @@ const StyledButton = em.button`
   border-radius: 0.25rem;
   box-sizing: border-box;
   height: 2rem;
-  font-size: 0.875rem;
   padding: 0.5rem 1rem;
   line-height: 1;
   font-weight: 600;
@@ -50,5 +50,23 @@ const themes = {
     border: 1px solid #fff;
   `
 };
+
+const sizes = {
+  small: css`
+    font-size: 0.875rem;
+    line-height: 1rem;
+    height: 2rem;
+  `,
+  middle: css`
+    font-size: 1rem;
+    line-height: 1.125rem;
+    height: 2.125rem;
+  `,
+  big: css`
+    font-size: 1.125rem;
+    line-height: 1.25rem;
+    height: 2.25rem;
+  `,
+}
 
 export default Button;

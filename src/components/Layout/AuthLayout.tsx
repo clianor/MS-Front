@@ -9,9 +9,11 @@ type AuthLayoutProps = {
 }
 
 const AuthLayout = ({ type }: AuthLayoutProps) => {
+  const text = type === "login" ? "로그인" : "회원가입";
+
   return (
     <div css={AuthLayoutStyle}>
-      <h4>{type === "login" ? "로그인" : "회원가입"}</h4>
+      <h4>{text}</h4>
       <Formik
         initialValues={{email: "", password: "", passwordConfirm: "", companyName: ""}}
         onSubmit={(values, {setErrors}) => {
@@ -79,7 +81,7 @@ const AuthLayout = ({ type }: AuthLayoutProps) => {
                 </>
               )
             }
-            <Button type="submit" disabled={isSubmitting}>submit</Button>
+            <Button type="submit" size="middle" disabled={isSubmitting}>{text}</Button>
           </form>
         )}
       </Formik>
@@ -103,20 +105,17 @@ const AuthLayoutStyle = css`
 const FormStyle = css`
   display: flex;
   flex-direction: column;
-  
   & > div {
     display: flex;
     flex-direction: column;
     min-width: 50vw;
     padding-bottom: 0.75rem;
   }
-  
   & > div > label {
     font-size: 1.1rem;
     text-align: left;
     padding-bottom: 0.5rem;
   }
-  
   @media screen and (max-width: 620px) {
     & > div {
       min-width: 70vw;
