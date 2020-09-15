@@ -1,22 +1,16 @@
 /** @jsx jsx */
 import Head from "next/head";
-import Header from "../components/Layout/Header";
-import Button from "../components/Button";
 import Content from "../components/Layout/Content";
 import {jsx, css} from "@emotion/core";
-import {useRouter} from "next/router";
 
 export default function Home() {
-  const router = useRouter();
-
   return (
-    <div className="container">
+    <>
       <Head>
         <title>Landing Page</title>
         <link rel="icon" href="/favicon.ico"/>
       </Head>
 
-      <Header title="마스" extra={[<Button key="loginBtn" onClick={() => router.push("/auth/login")}>로그인</Button>]}/>
       <Content>
         <section css={sectionStyle}>
           <div>
@@ -25,7 +19,7 @@ export default function Home() {
           </div>
         </section>
       </Content>
-    </div>
+    </>
   )
 }
 
