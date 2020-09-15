@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import {jsx, css} from "@emotion/core";
 import Content from "../../components/Layout/Content";
-import AuthLayout from "../../components/Layout/AuthLayout";
+import RegisterForm from "../../containers/auth/RegisterForm";
 
 export default function Register() {
   return (
@@ -10,7 +10,7 @@ export default function Register() {
       justify-content: center;
       align-items: center;
     `}>
-      <AuthLayout type="register" />
+      <RegisterForm />
     </Content>
   )
 }

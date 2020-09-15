@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Header from "./Header";
-import Button from "../Button";
+import Header from "../components/Layout/Header";
+import Button from "../components/Button";
 import {useRouter} from "next/router";
 
 type MainLayoutProps = {

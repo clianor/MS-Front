@@ -1,7 +1,7 @@
 /** @jsx jsx */
-import AuthLayout from "../../components/Layout/AuthLayout";
 import {css, jsx} from "@emotion/core";
 import Content from "../../components/Layout/Content";
+import LoginForm from "../../containers/auth/LoginForm";
 
 export default function Login() {
   return (
@@ -10,7 +10,7 @@ export default function Login() {
       justify-content: center;
       align-items: center;
     `}>
-      <AuthLayout type="login" />
+      <LoginForm />
     </Content>
   )
 }

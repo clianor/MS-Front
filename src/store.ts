@@ -4,6 +4,11 @@ import createSagaMiddleware, {Task} from 'redux-saga';
 import {Context, createWrapper, MakeStore} from "next-redux-wrapper"
 import rootReducer from "./reducer";
 import rootSaga from "./sagas";
+import {AuthState} from "./reducer/auth";
+
+export type State = {
+  auth: AuthState;
+}
 
 export interface sagaStore extends Store {
   sagaTask?: Task;

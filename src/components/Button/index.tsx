@@ -2,15 +2,24 @@
 import {ButtonHTMLAttributes, ReactNode} from "react";
 import em from "@emotion/styled";
 import {jsx, css} from "@emotion/core";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faSpinner} from '@fortawesome/free-solid-svg-icons'
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   theme?: "primary" | "secondary" | "tertiary";
   size?: "small" | "middle" | "big";
+  isLoading?: boolean;
   children: ReactNode;
 }
 
-const Button = ({ children, theme="primary", size="small", ...rest }: ButtonProps) => {
-  return <StyledButton css={[themes[theme], sizes[size]]} {...rest}>{children}</StyledButton>;
+const Button = ({children, theme = "primary", size = "small", isLoading = false, ...rest}: ButtonProps) => {
+  return (
+    <StyledButton css={[themes[theme], sizes[size]]} {...rest}>
+      {isLoading
+        ? <FontAwesomeIcon icon={faSpinner} className="loading_icon" spin />
+        : children}
+    </StyledButton>
+  );
 }
 
 const StyledButton = em.button`
@@ -42,12 +51,21 @@ const themes = {
     border: 1px solid #E6E9F4;
     background-color: #2185D0;
     color: #fff;
+    & .loading_icon > path { fill: #fff };
+    &:hover .loading_icon > path { fill: #fff; }
+    &:active .loading_icon > path { fill: #fff; }
   `,
   secondary: css`
     border: 1px solid #E6E9F4;
+    & .loading_icon > path { fill: #333 };
+    &:hover .loading_icon > path { fill: #fff; }
+    &:active .loading_icon > path { fill: #fff; }
   `,
   tertiary: css`
     border: 1px solid #fff;
+    & .loading_icon > path { fill: #333 };
+    &:hover .loading_icon > path { fill: #fff; }
+    &:active .loading_icon > path { fill: #fff; }
   `
 };
 
