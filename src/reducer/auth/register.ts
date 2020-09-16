@@ -5,7 +5,7 @@ export type RegisterState = {
   companyName: string;
   success: boolean;
   isLoading?: boolean;
-}
+};
 
 export const REGISTER_INITIALIZE = "auth/REGISTER_INITIALIZE";
 export const REGISTER_REQUEST = "auth/REGISTER_REQUEST";

@@ -1,6 +1,8 @@
 import {RegisterState, REGISTER_INITIALIZE, REGISTER_REQUEST, REGISTER_SUCCESS} from "./register";
+import {LOGIN_INITIALIZE, LoginState} from "./login";
 
 export type AuthState = {
+  login: LoginState;
   register: RegisterState;
   authorization: string;
   errors?: [
@@ -12,6 +14,12 @@ export type AuthState = {
 };
 
 export const initialState: AuthState = {
+  login: {
+    email: "",
+    password: "",
+    success: false,
+    isLoading: false,
+  },
   register: {
     email: "",
     password: "",
@@ -67,7 +75,15 @@ const reducer = (state = initialState, payload: any) => {
       return {
         ...state,
         "register": {
-          ...initialState.register
+          ...initialState.register,
+        },
+        "errors": [],
+      }
+    case LOGIN_INITIALIZE:
+      return {
+        ...state,
+        "login": {
+          ...initialState.login,
         },
         "errors": [],
       }
