@@ -2,8 +2,8 @@
 import {ButtonHTMLAttributes, ReactNode} from "react";
 import em from "@emotion/styled";
 import {jsx, css} from "@emotion/core";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faSpinner} from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   theme?: "primary" | "secondary" | "tertiary";
@@ -16,7 +16,7 @@ const Button = ({children, theme = "primary", size = "small", isLoading = false,
   return (
     <StyledButton css={[themes[theme], sizes[size]]} {...rest}>
       {isLoading
-        ? <FontAwesomeIcon icon={faSpinner} className="loading_icon" spin />
+        ? <FontAwesomeIcon icon={faSpinner} className="loading_icon" size={iconSizes[size]} spin />
         : children}
     </StyledButton>
   );
@@ -85,6 +85,12 @@ const sizes = {
     line-height: 1.25rem;
     height: 2.25rem;
   `,
+}
+
+const iconSizes: any = {
+  small: "sm",
+  middle: "lg",
+  middleL: "lg",
 }
 
 export default Button;
