@@ -1,6 +1,8 @@
 import {RegisterState, REGISTER_INITIALIZE, REGISTER_REQUEST, REGISTER_SUCCESS} from "./register";
 import {LOGIN_INITIALIZE, LOGIN_REQUEST, LOGIN_SUCCESS, LoginState} from "./login";
 
+type FormType = "register" | "login";
+
 export type AuthState = {
   login: LoginState;
   register: RegisterState;
@@ -63,7 +65,7 @@ const reducer = (state = initialState, payload: any) => {
       return {
         ...state,
         [payload.data.formType]: {
-          ...state[payload.data.formType],
+          ...state[payload.data.formType as FormType],
           [payload.data.key]: payload.data.value,
         },
       };
