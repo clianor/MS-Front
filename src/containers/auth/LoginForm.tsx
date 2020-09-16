@@ -20,8 +20,7 @@ const LoginForm = () => {
       router.push("/");
 
     return () => {
-      if (login.success)
-        dispatch(loginInitAction());
+      dispatch(loginInitAction());
     }
   }, [login.success]);
 

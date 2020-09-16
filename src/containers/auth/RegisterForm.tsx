@@ -20,8 +20,7 @@ const RegisterForm = () => {
       router.push("/");
 
     return () => {
-      if (register.success)
-        dispatch(registerInitAction());
+      dispatch(registerInitAction());
     }
   }, [register.success]);
 
