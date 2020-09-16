@@ -2,8 +2,6 @@
 import {ButtonHTMLAttributes, ReactNode} from "react";
 import em from "@emotion/styled";
 import {jsx, css} from "@emotion/core";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faSpinner} from "@fortawesome/free-solid-svg-icons";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   theme?: "primary" | "secondary" | "tertiary";
@@ -14,10 +12,8 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 
 const Button = ({children, theme = "primary", size = "small", isLoading = false, ...rest}: ButtonProps) => {
   return (
-    <StyledButton css={[themes[theme], sizes[size]]} {...rest}>
-      {isLoading
-        ? <FontAwesomeIcon icon={faSpinner} className="loading_icon" size={iconSizes[size]} spin />
-        : children}
+    <StyledButton css={[themes[theme], sizes[size]]} disabled={isLoading} {...rest}>
+      {children}
     </StyledButton>
   );
 }
@@ -44,6 +40,10 @@ const StyledButton = em.button`
     background-color: #333;
     color: #fff;
   }
+  &:disabled, &:disabled:hover, &:disabled:active {
+    background-color: lightgray;
+    cursor: not-allowed;
+  }
 `;
 
 const themes = {
@@ -51,21 +51,12 @@ const themes = {
     border: 1px solid #E6E9F4;
     background-color: #2185D0;
     color: #fff;
-    & .loading_icon > path { fill: #fff };
-    &:hover .loading_icon > path { fill: #fff; }
-    &:active .loading_icon > path { fill: #fff; }
   `,
   secondary: css`
     border: 1px solid #E6E9F4;
-    & .loading_icon > path { fill: #333 };
-    &:hover .loading_icon > path { fill: #fff; }
-    &:active .loading_icon > path { fill: #fff; }
   `,
   tertiary: css`
     border: 1px solid #fff;
-    & .loading_icon > path { fill: #333 };
-    &:hover .loading_icon > path { fill: #fff; }
-    &:active .loading_icon > path { fill: #fff; }
   `
 };
 
@@ -85,12 +76,6 @@ const sizes = {
     line-height: 1.25rem;
     height: 2.25rem;
   `,
-}
-
-const iconSizes: any = {
-  small: "sm",
-  middle: "lg",
-  middleL: "lg",
 }
 
 export default Button;
