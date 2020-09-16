@@ -132,6 +132,10 @@ const reducer = (state = initialState, payload: any) => {
           ...state["register"],
           isLoading: false,
         },
+        "login": {
+          ...state["login"],
+          isLoading: false,
+        },
         authorization: "",
         errors: payload.data.errors,
       };
