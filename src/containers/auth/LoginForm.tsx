@@ -5,6 +5,7 @@ import {State} from "../../store";
 import {ChangeEvent, FormEvent, useCallback, useEffect} from "react";
 import {changeFieldAction} from "../../reducer/auth";
 import {loginAction, loginInitAction} from "../../reducer/auth/login";
+import {meAction} from "../../reducer/auth/me";
 
 const LoginForm = () => {
   const router = useRouter();
@@ -16,8 +17,10 @@ const LoginForm = () => {
   }, []);
 
   useEffect(() => {
-    if (login.success)
+    if (login.success) {
       router.push("/");
+      dispatch(meAction());
+    }
 
     return () => {
       dispatch(loginInitAction());

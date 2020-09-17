@@ -13,7 +13,7 @@ export const meAction = () => {
   return {
     type: ME_REQUEST,
   }
-}
+};
 
 export const meSuccessAction = (data: any) => {
   return {

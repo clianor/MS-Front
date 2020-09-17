@@ -3,7 +3,11 @@ import {State} from "../store";
 import {useRouter} from "next/router";
 import {useEffect} from "react";
 
-export const useIsAuth = () => {
+type useIsAuthProps = {
+  requiredLogin: boolean;
+};
+
+export const useIsAuth = ({}: useIsAuthProps) => {
   const router = useRouter();
   const {me} = useSelector((state: State) => state.auth);
 

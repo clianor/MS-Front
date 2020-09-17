@@ -1,6 +1,7 @@
 import {RegisterState, REGISTER_INITIALIZE, REGISTER_REQUEST, REGISTER_SUCCESS} from "./register";
 import {LoginState, LOGIN_INITIALIZE, LOGIN_REQUEST, LOGIN_SUCCESS} from "./login";
 import {MeState, ME_SUCCESS, ME_FAILURE, ME_REQUEST} from "./me";
+import {LOGOUT_SUCCESS} from "./logout";
 
 type FormType = "register" | "login";
 
@@ -67,6 +68,13 @@ export const errorAction = (data: any) => {
 
 const reducer = (state = initialState, payload: any) => {
   switch (payload.type) {
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        "me": {
+          ...initialState.me,
+        },
+      }
     case ME_REQUEST:
       return {
         ...state,
@@ -76,7 +84,6 @@ const reducer = (state = initialState, payload: any) => {
         },
       }
     case ME_SUCCESS:
-      console.log(payload)
       return {
         ...state,
         "me": {
@@ -144,7 +151,6 @@ const reducer = (state = initialState, payload: any) => {
           isLoading: false,
           success: true,
         },
-        authorization: payload.data.authorization,
       }
     case LOGIN_SUCCESS:
       return {
@@ -154,7 +160,6 @@ const reducer = (state = initialState, payload: any) => {
           isLoading: false,
           success: true,
         },
-        authorization: payload.data.authorization,
       }
     case SET_ERROR:
       return {

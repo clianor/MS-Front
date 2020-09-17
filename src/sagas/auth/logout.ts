@@ -1,27 +1,27 @@
 import {call, put, takeLatest} from "@redux-saga/core/effects";
-import {ME_REQUEST, meSuccessAction} from "../../reducer/auth/me";
+import {LOGOUT_REQUEST, logoutSuccessAction} from "../../reducer/auth/logout";
 import axios, {AxiosRequestConfig} from "axios";
 import {errorAction} from "../../reducer/auth";
 
-function meApi() {
+function logoutApi() {
   const options: AxiosRequestConfig = {
-    method: "POST",
-    url: "http://localhost:8000/api/auth/me",
+    method: "GET",
+    url: "http://localhost:8000/api/auth/logout",
     withCredentials: true,
   }
 
   return axios(options);
 }
 
-function* meSagaAction() {
+function* logoutSagaAction() {
   try {
-    const result = yield call(meApi)
-    yield put(meSuccessAction(result.data.user));
+    yield call(logoutApi);
+    yield put(logoutSuccessAction());
   } catch (error) {
     yield put(errorAction(error.response.data));
   }
 }
 
-export function* doMeAction() {
-  yield takeLatest(ME_REQUEST, meSagaAction);
+export function* doLogoutAction() {
+  yield takeLatest(LOGOUT_REQUEST, logoutSagaAction);
 }
