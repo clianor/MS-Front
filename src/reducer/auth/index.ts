@@ -1,12 +1,13 @@
 import {RegisterState, REGISTER_INITIALIZE, REGISTER_REQUEST, REGISTER_SUCCESS} from "./register";
-import {LOGIN_INITIALIZE, LOGIN_REQUEST, LOGIN_SUCCESS, LoginState} from "./login";
+import {LoginState, LOGIN_INITIALIZE, LOGIN_REQUEST, LOGIN_SUCCESS} from "./login";
+import {MeState, ME_SUCCESS, ME_FAILURE, ME_REQUEST} from "./me";
 
 type FormType = "register" | "login";
 
 export type AuthState = {
   login: LoginState;
   register: RegisterState;
-  authorization: string;
+  me: MeState
   errors?: [
     {
       field: string,
@@ -30,7 +31,12 @@ export const initialState: AuthState = {
     success: false,
     isLoading: false,
   },
-  authorization: "",
+  me: {
+    id: "",
+    email: "",
+    companyName: "",
+    isLoading: false,
+  },
   errors: [],
 };
 
@@ -61,6 +67,31 @@ export const errorAction = (data: any) => {
 
 const reducer = (state = initialState, payload: any) => {
   switch (payload.type) {
+    case ME_REQUEST:
+      return {
+        ...state,
+        "me": {
+          ...payload.data,
+          isLoading: true,
+        },
+      }
+    case ME_SUCCESS:
+      console.log(payload)
+      return {
+        ...state,
+        "me": {
+          ...payload.data,
+          isLoading: false,
+        },
+      }
+    case ME_FAILURE:
+      return {
+        ...state,
+        "me": {
+          ...initialState.me,
+          isLoading: false,
+        },
+      }
     case CHANGE_FIELD:
       return {
         ...state,

@@ -4,6 +4,7 @@ import Content from "../components/Layout/Content";
 import {jsx, css} from "@emotion/core";
 
 export default function Home() {
+  // useIsAuth();
   return (
     <>
       <Head>
