@@ -2,9 +2,11 @@
 import Head from "next/head";
 import Content from "../components/Layout/Content";
 import {jsx, css} from "@emotion/core";
+import {useIsAuth} from "../shared/useIsAuth";
 
 export default function Home() {
-  // useIsAuth();
+  useIsAuth();
+
   return (
     <>
       <Head>

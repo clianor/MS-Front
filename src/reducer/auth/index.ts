@@ -79,7 +79,7 @@ const reducer = (state = initialState, payload: any) => {
       return {
         ...state,
         "me": {
-          ...payload.data,
+          ...state.me,
           isLoading: true,
         },
       }
@@ -172,7 +172,6 @@ const reducer = (state = initialState, payload: any) => {
           ...state["login"],
           isLoading: false,
         },
-        authorization: "",
         errors: payload.data.errors,
       };
     default:

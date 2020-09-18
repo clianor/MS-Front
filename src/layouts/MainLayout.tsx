@@ -3,8 +3,7 @@ import Header from "../components/Layout/Header";
 import Button from "../components/Button";
 import {useRouter} from "next/router";
 import {useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {meAction} from "../reducer/auth/me";
+import {useSelector} from "react-redux";
 import {State} from "../store";
 
 type MainLayoutProps = {
@@ -12,12 +11,7 @@ type MainLayoutProps = {
 }
 
 function MainLayout({children}: MainLayoutProps) {
-  const dispatch = useDispatch();
   const {me} = useSelector((state: State) => state.auth);
-
-  useEffect(() => {
-    dispatch(meAction())
-  }, []);
 
   useEffect(() => {}, [me.id])
 
