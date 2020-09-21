@@ -1,5 +1,6 @@
 /** @jsx jsx */
 import {css, jsx} from "@emotion/core";
+import Head from "next/head";
 import Content from "../../components/Layout/Content";
 import {useDispatch} from "react-redux";
 import {useEffect} from "react";
@@ -24,6 +25,9 @@ export default function Logout() {
       justify-content: center;
       align-items: center;
     `}>
+      <Head>
+        <title>Logout</title>
+      </Head>
       </Content>
   )
 }
