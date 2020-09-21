@@ -22,8 +22,8 @@ export const makeStore: MakeStore = (context: Context) => {
   const store: sagaStore = createStore(
     rootReducer,
     process.env.NODE_ENV === "production"
-        ? applyMiddleware(sagaMiddleware)
-        : composeWithDevTools(applyMiddleware(sagaMiddleware))
+      ? applyMiddleware(sagaMiddleware)
+      : composeWithDevTools(applyMiddleware(sagaMiddleware))
   );
 
   // 사가를 서버에서 실행

@@ -3,9 +3,11 @@ import Head from "next/head";
 import Content from "../components/Layout/Content";
 import {jsx, css} from "@emotion/core";
 import {useIsAuth} from "../shared/useIsAuth";
+import {wrapper} from "../store";
+import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../shared/serverSideAuth";
 
-export default function Home() {
-  useIsAuth();
+export default function Home(props: any) {
+  useIsAuth(null, props.state.auth.me);
 
   return (
     <>
@@ -25,6 +27,14 @@ export default function Home() {
     </>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context: ServerSidePropsContext) => {
+  return {
+    props: {
+      state: await ServerSidePropsMeAuth(context),
+    },
+  }
+});
 
 const sectionStyle = css`
   display: flex;

@@ -4,9 +4,11 @@ import Head from "next/head";
 import Content from "../../components/Layout/Content";
 import RegisterForm from "../../containers/auth/RegisterForm";
 import {useIsAuth} from "../../shared/useIsAuth";
+import {wrapper} from "../../store";
+import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../../shared/serverSideAuth";
 
-export default function Register() {
-  useIsAuth(false);
+export default function Register(props: any) {
+  useIsAuth(false, props.state.auth.me);
 
   return (
     <Content css={css`
@@ -21,3 +23,11 @@ export default function Register() {
     </Content>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context: ServerSidePropsContext) => {
+  return {
+    props: {
+      state: await ServerSidePropsMeAuth(context),
+    },
+  }
+});

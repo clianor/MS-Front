@@ -4,9 +4,11 @@ import Head from "next/head";
 import Content from "../../components/Layout/Content";
 import LoginForm from "../../containers/auth/LoginForm";
 import {useIsAuth} from "../../shared/useIsAuth";
+import {wrapper} from "../../store";
+import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../../shared/serverSideAuth";
 
-export default function Login() {
-  useIsAuth(false);
+export default function Login(props: any) {
+  useIsAuth(false, props.state.auth.me);
 
   return (
     <Content css={css`
@@ -17,7 +19,15 @@ export default function Login() {
       <Head>
         <title>Login</title>
       </Head>
-      <LoginForm />
+      <LoginForm/>
     </Content>
   )
 }
+
+export const getServerSideProps = wrapper.getServerSideProps(async (context: ServerSidePropsContext) => {
+  return {
+    props: {
+      state: await ServerSidePropsMeAuth(context),
+    },
+  }
+});

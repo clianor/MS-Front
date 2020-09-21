@@ -1,6 +1,6 @@
 import {RegisterState, REGISTER_INITIALIZE, REGISTER_REQUEST, REGISTER_SUCCESS} from "./register";
 import {LoginState, LOGIN_INITIALIZE, LOGIN_REQUEST, LOGIN_SUCCESS} from "./login";
-import {MeState, ME_SUCCESS, ME_FAILURE, ME_REQUEST} from "./me";
+import {MeState, ME_SUCCESS, ME_FAILURE, ME_REQUEST, ME_SET} from "./me";
 import {LOGOUT_SUCCESS} from "./logout";
 
 type FormType = "register" | "login";
@@ -42,7 +42,6 @@ export const initialState: AuthState = {
 };
 
 export const CHANGE_FIELD = 'auth/CHANGE_FIELD';
-export const LOAD_TOKEN = "auth/LOAD_TOKEN";
 export const SET_ERROR = 'auth/ERROR';
 
 export const changeFieldAction = (data: any) => {
@@ -50,13 +49,6 @@ export const changeFieldAction = (data: any) => {
     type: CHANGE_FIELD,
     data,
   };
-};
-
-export const loadTokenAction = (data: any) => {
-  return {
-    type: LOAD_TOKEN,
-    data,
-  }
 };
 
 export const errorAction = (data: any) => {
@@ -74,6 +66,13 @@ const reducer = (state = initialState, payload: any) => {
         "me": {
           ...initialState.me,
         },
+      }
+    case ME_SET:
+      return {
+        ...state,
+        "me": {
+          ...payload.data,
+        }
       }
     case ME_REQUEST:
       return {
@@ -106,10 +105,6 @@ const reducer = (state = initialState, payload: any) => {
           ...state[payload.data.formType as FormType],
           [payload.data.key]: payload.data.value,
         },
-      };
-    case LOAD_TOKEN:
-      return {
-        ...state,
       };
     case REGISTER_INITIALIZE:
       return {
@@ -170,6 +165,10 @@ const reducer = (state = initialState, payload: any) => {
         },
         "login": {
           ...state["login"],
+          isLoading: false,
+        },
+        "me": {
+          ...state["me"],
           isLoading: false,
         },
         errors: payload.data.errors,

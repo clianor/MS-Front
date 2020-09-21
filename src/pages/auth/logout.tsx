@@ -6,13 +6,10 @@ import {useDispatch} from "react-redux";
 import {useEffect} from "react";
 import {logoutAction} from "../../reducer/auth/logout";
 import {useRouter} from "next/router";
-import {useIsAuth} from "../../shared/useIsAuth";
 
 export default function Logout() {
   const router = useRouter();
   const dispatch = useDispatch();
-
-  useIsAuth(false);
 
   useEffect(() => {
     dispatch(logoutAction());
@@ -31,3 +28,4 @@ export default function Logout() {
       </Content>
   )
 }
+
