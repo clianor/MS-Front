@@ -7,7 +7,7 @@ import {wrapper} from "../store";
 import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../shared/serverSideAuth";
 
 export default function Home(props: any) {
-  useIsAuth(null, props.state.auth.me);
+  useIsAuth(null, props.meState);
 
   return (
     <>
@@ -31,7 +31,7 @@ export default function Home(props: any) {
 export const getServerSideProps = wrapper.getServerSideProps(async (context: ServerSidePropsContext) => {
   return {
     props: {
-      state: await ServerSidePropsMeAuth(context),
+      meState: await ServerSidePropsMeAuth(context),
     },
   }
 });

@@ -8,7 +8,7 @@ import {wrapper} from "../../store";
 import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../../shared/serverSideAuth";
 
 export default function Register(props: any) {
-  useIsAuth(false, props.state.auth.me);
+  useIsAuth(false, props.meState);
 
   return (
     <Content css={css`
@@ -27,7 +27,7 @@ export default function Register(props: any) {
 export const getServerSideProps = wrapper.getServerSideProps(async (context: ServerSidePropsContext) => {
   return {
     props: {
-      state: await ServerSidePropsMeAuth(context),
+      meState: await ServerSidePropsMeAuth(context),
     },
   }
 });

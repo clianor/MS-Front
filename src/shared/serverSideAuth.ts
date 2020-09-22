@@ -1,6 +1,4 @@
 import {GetServerSidePropsContext} from "next";
-// import {Store} from "redux";
-// import {sagaStore} from "../store";
 import {meAction} from "../reducer/auth/me";
 import {END} from "@redux-saga/core";
 
@@ -13,5 +11,5 @@ export const ServerSidePropsMeAuth = async (context: ServerSidePropsContext) => 
   store.dispatch(meAction({cookie: req.headers.cookie}));
   store.dispatch(END);
   await store.sagaTask.toPromise();
-  return store.getState();
+  return store.getState().auth.me;
 }
