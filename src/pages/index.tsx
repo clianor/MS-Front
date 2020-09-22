@@ -1,13 +1,23 @@
 /** @jsx jsx */
+import {useEffect} from "react";
 import Head from "next/head";
-import Content from "../components/Layout/Content";
+import {useRouter} from "next/router";
 import {jsx, css} from "@emotion/core";
+import Content from "../components/Layout/Content";
 import {useIsAuth} from "../shared/useIsAuth";
 import {wrapper} from "../store";
 import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../shared/serverSideAuth";
 
+
 export default function Home(props: any) {
+  const router = useRouter();
   useIsAuth(null, props.meState);
+
+  useEffect(() => {
+    if (props.meState.id) {
+      router.push("/store");
+    }
+  }, [])
 
   return (
     <>
