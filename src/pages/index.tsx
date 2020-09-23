@@ -5,8 +5,7 @@ import {useRouter} from "next/router";
 import {jsx, css} from "@emotion/core";
 import Content from "../components/Layout/Content";
 import {useIsAuth} from "../shared/useIsAuth";
-import {wrapper} from "../store";
-import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../shared/serverSideAuth";
+import {serverSideProps} from "../shared/serverSideAuth";
 
 
 export default function Home(props: any) {
@@ -38,13 +37,7 @@ export default function Home(props: any) {
   )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async (context: ServerSidePropsContext) => {
-  return {
-    props: {
-      meState: await ServerSidePropsMeAuth(context),
-    },
-  }
-});
+export const getServerSideProps = serverSideProps;
 
 const sectionStyle = css`
   display: flex;

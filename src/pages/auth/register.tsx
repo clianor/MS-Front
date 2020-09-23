@@ -4,8 +4,7 @@ import Head from "next/head";
 import Content from "../../components/Layout/Content";
 import RegisterForm from "../../containers/auth/RegisterForm";
 import {useIsAuth} from "../../shared/useIsAuth";
-import {wrapper} from "../../store";
-import {ServerSidePropsContext, ServerSidePropsMeAuth} from "../../shared/serverSideAuth";
+import {serverSideProps} from "../../shared/serverSideAuth";
 
 export default function Register(props: any) {
   useIsAuth(false, props.meState);
@@ -24,10 +23,4 @@ export default function Register(props: any) {
   )
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(async (context: ServerSidePropsContext) => {
-  return {
-    props: {
-      meState: await ServerSidePropsMeAuth(context),
-    },
-  }
-});
+export const getServerSideProps = serverSideProps;

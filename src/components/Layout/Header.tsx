@@ -3,6 +3,8 @@ import Head from "next/head";
 import em from "@emotion/styled";
 import {useRouter} from "next/router";
 import {HeaderHeight} from "../../shared/layoutConstans";
+import {useSelector} from "react-redux";
+import {State} from "../../store";
 
 interface HeaderProps extends HTMLAttributes<HTMLDivElement> {
   title?: any;
@@ -41,13 +43,14 @@ const HeaderExtra = em.span`
 
 const LayoutHeader = ({title, extra}: HeaderProps) => {
   const router = useRouter();
+  const {id} = useSelector((state: State) => state.auth.me)
 
   return (
     <Header>
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet" />
       </Head>
-      <HeaderTitle onClick={() => router.push("/")}>{title}</HeaderTitle>
+      <HeaderTitle onClick={() => router.push(id ? "/store" : "/")}>{title}</HeaderTitle>
       <HeaderExtra>
         {extra}
       </HeaderExtra>
