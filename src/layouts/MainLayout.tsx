@@ -13,19 +13,25 @@ type MainLayoutProps = {
 function MainLayout({children}: MainLayoutProps) {
   const {me} = useSelector((state: State) => state.auth);
 
-  useEffect(() => {}, [me.id])
+  useEffect(() => {
+  }, [me.id])
 
   return (
     <div className="container">
       <Head>
-        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet"/>
       </Head>
       <Header
         title="마스"
+        loginMenu={[
+          {href: "/store", text: "대시보드"},
+          {href: "/store/create", text: "제품 등록"},
+          {href: "/store/manage", text: "일일 재고 관리"},
+        ]}
         extra={
           me.id
-            ? [<LogoutButton key="logoutBtn" />]
-            : [<LoginButton key="loginBtn" />, <RegisterButton key="registerBtn" />]
+            ? [<LogoutButton key="logoutBtn"/>]
+            : [<LoginButton key="loginBtn"/>, <RegisterButton key="registerBtn"/>]
         }
       />
       {children}

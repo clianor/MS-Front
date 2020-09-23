@@ -28,6 +28,7 @@ const StyledButton = em.button`
   font-weight: 600;
   background-color: #fff;
   cursor: pointer;
+  word-break: keep-all;
   &:focus {
     outline: solid
     box-shadow: 0px 0px 8px rgba(87, 184, 255, 0.2);
