@@ -1,6 +1,6 @@
 /** @jsx jsx */
 import {jsx, css} from "@emotion/core";
-import Index from "../components/Input";
+import InputBox from "../components/Input";
 import Button from "../components/Button";
 
 interface AuthLayoutProps {
@@ -18,7 +18,7 @@ const AuthLayout = ({ type, form, onChange, onSubmit }: AuthLayoutProps) => {
       <h4>{text}</h4>
       <form onSubmit={onSubmit} css={FormStyle}>
         <div>
-          <Index
+          <InputBox
             type="email"
             id="email"
             name="email"
@@ -30,7 +30,7 @@ const AuthLayout = ({ type, form, onChange, onSubmit }: AuthLayoutProps) => {
           />
         </div>
         <div>
-          <Index
+          <InputBox
             type="password"
             id="password"
             name="password"
@@ -45,7 +45,7 @@ const AuthLayout = ({ type, form, onChange, onSubmit }: AuthLayoutProps) => {
           type === "register" && (
             <>
               <div>
-                <Index
+                <InputBox
                   type="password"
                   id="passwordConfirm"
                   name="passwordConfirm"
@@ -57,7 +57,7 @@ const AuthLayout = ({ type, form, onChange, onSubmit }: AuthLayoutProps) => {
                 />
               </div>
               <div>
-                <Index
+                <InputBox
                   type="text"
                   id="companyName"
                   name="companyName"
@@ -79,6 +79,7 @@ const AuthLayout = ({ type, form, onChange, onSubmit }: AuthLayoutProps) => {
 
 const AuthLayoutStyle = css`
   display: block;
+  max-width: 40rem;
   padding: 2.25rem;
   box-shadow: 0 1px 5px 1px #E6E9F4;
   & > h4 {
@@ -96,7 +97,8 @@ const FormStyle = css`
   & > div {
     display: flex;
     flex-direction: column;
-    min-width: 50vw;
+    width: 50vw;
+    max-width: 100%;
     padding-bottom: 0.75rem;
   }
   & > div > label {
