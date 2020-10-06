@@ -17,13 +17,17 @@ const LayoutHeader = ({title, loginMenu, extra}: HeaderProps) => {
   const router = useRouter();
   const {id} = useSelector((state: State) => state.auth.me)
 
+  const handlerWheel = (event: any) => {
+    event.currentTarget.scrollLeft += event.deltaY;
+  }
+
   return (
     <Header>
       <Head>
         <link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&display=swap" rel="stylesheet"/>
       </Head>
       <HeaderTitle onClick={() => router.push(id ? "/store" : "/")}>{title}</HeaderTitle>
-      <HeaderMenu>
+      <HeaderMenu onWheel={handlerWheel}>
         {
           id && (
             loginMenu?.map((item) => (
@@ -68,8 +72,9 @@ const HeaderMenu = em.div`
   height: 100%;
   line-height: ${HeaderHeight};
   overflow: hidden;
+  white-space: nowrap;
   & > a {
-    display: inline-block;
+    display: inline;
     height: 100%;
     text-decoration: none;
     margin: 0 0.5rem;
