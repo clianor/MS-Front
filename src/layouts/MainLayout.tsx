@@ -25,7 +25,7 @@ function MainLayout({children}: MainLayoutProps) {
         title="마스"
         loginMenu={[
           {href: "/store", text: "대시보드"},
-          {href: "/store/create", text: "제품 등록"},
+          {href: "/store/product", text: "제품 등록"},
           {href: "/store/manage", text: "일일 재고 관리"},
         ]}
         extra={

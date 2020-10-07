@@ -1,4 +1,4 @@
-import {HTMLAttributes} from "react";
+import {HTMLAttributes, WheelEvent} from "react";
 import Head from "next/head";
 import Link from "next/link";
 import em from "@emotion/styled";
@@ -17,7 +17,7 @@ const LayoutHeader = ({title, loginMenu, extra}: HeaderProps) => {
   const router = useRouter();
   const {id} = useSelector((state: State) => state.auth.me)
 
-  const handlerWheel = (event: any) => {
+  const handlerWheel = (event: WheelEvent<HTMLDivElement>) => {
     event.currentTarget.scrollLeft += event.deltaY;
   }
 
