@@ -2,12 +2,13 @@
 import {jsx, css} from "@emotion/core";
 import {useState} from "react";
 import em from "@emotion/styled";
+// import axios, {AxiosRequestConfig} from "axios";
 import Dropzone from "react-dropzone";
-import { BsPlusCircle } from "react-icons/bs";
-import Button from "../components/Button";
-import Row from "../components/Layout/Row";
-import SearchDropdown from "../components/Dropdown/SearchDropdown";
-import TextArea from "../components/Input/TextArea";
+import {BsPlusCircle} from "react-icons/bs";
+import Button from "../../../components/Button";
+import Row from "../../../components/Layout/Row";
+import SearchDropdown from "../../../components/Dropdown/SearchDropdown";
+import TextArea from "../../../components/Input/TextArea";
 
 const options = [
   "ml",
@@ -19,16 +20,33 @@ const options = [
 
 const ProductCreateSection = () => {
   const [value, setValue] = useState("");
+  const [image, setImage] = useState<string>("");
+
+  const onDrop = (files: any) => {
+    let formData = new FormData();
+    formData.append("file", files[0]);
+
+    let reader = new FileReader();
+    reader.readAsDataURL(files[0]);
+    reader.onload = () => {
+      setImage(reader.result as string);
+    }
+  }
 
   return (
     <Section>
       <div css={ContainerStyle}>
         <figure>
-          <Dropzone>
-            {({ getRootProps, getInputProps }) => (
+          {/* 10메가까지 업로드 가능하도록 제한 */}
+          <Dropzone onDrop={onDrop} multiple={false} maxSize={83886080}>
+            {({getRootProps, getInputProps}) => (
               <section css={DropzoneSection} {...getRootProps()}>
                 <input {...getInputProps()} />
-                <BsPlusCircle style={{ fontSize: "3rem" }} />
+                {image ? (
+                  <img src={image} alt="업로드 이미지" css={ImageStyle} />
+                ) : (
+                  <BsPlusCircle style={{fontSize: "3rem"}}/>
+                )}
               </section>
             )}
           </Dropzone>
@@ -39,10 +57,10 @@ const ProductCreateSection = () => {
             <Button theme="primary" size="big" onClick={() => console.log("등록")} css={submitButton}>등록</Button>
           </Row>
           <div>
-            <SearchDropdown value={value} setValue={setValue} placeholder="단위" options={options} />
+            <SearchDropdown value={value} setValue={setValue} placeholder="단위" options={options}/>
           </div>
           <div>
-            <TextArea placeholder="설명" />
+            <TextArea placeholder="설명"/>
           </div>
         </div>
       </div>
@@ -79,6 +97,15 @@ const ContainerStyle = css`
     & > figure { width: 100%; }
     & > div { width: 100%; margin-top: 1rem; margin-bottom: 2rem; min-height: 15rem; }
   }
+`;
+
+const ImageStyle = css`
+  position: absolute; 
+  left: 0; 
+  top: 0; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover;
 `;
 
 const DropzoneSection = css`

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 import {ReactNode} from "react";
 import {jsx} from "@emotion/core";
-import ProductSection from "../../../layouts/ProductSection";
+import ProductSection from "./ProductSection";
 
 type ProductLayoutProps = {
   type?: "create" | "manage";
