@@ -5,6 +5,7 @@ import {jsx} from "@emotion/core";
 import {useIsAuth} from "../../../shared/useIsAuth";
 import {serverSideProps} from "../../../shared/serverSideAuth";
 import ProductSection from "../../../layouts/ProductSection";
+import ProductCreateSection from "../../../layouts/ProductCreateSection";
 
 export default function Product(props: any) {
   useIsAuth(true, props.meState);
@@ -16,18 +17,9 @@ export default function Product(props: any) {
         <link rel="icon" href="/favicon.ico"/>
       </Head>
 
-      <Content css={{
-
-      }}>
+      <Content>
         <ProductSection />
-        <section>
-          <div>이미지</div>
-          <div>
-            <div>버튼 row</div>
-            <div>단위</div>
-            <div>설명</div>
-          </div>
-        </section>
+        <ProductCreateSection />
       </Content>
     </>
   )
