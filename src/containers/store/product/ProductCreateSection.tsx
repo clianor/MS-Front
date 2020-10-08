@@ -38,7 +38,7 @@ const ProductCreateSection = () => {
       <div css={ContainerStyle}>
         <figure>
           {/* 10메가까지 업로드 가능하도록 제한 */}
-          <Dropzone onDrop={onDrop} multiple={false} maxSize={83886080}>
+          <Dropzone onDrop={onDrop} multiple={false} accept="image/jpeg, image/png, image/gif" maxSize={83886080}>
             {({getRootProps, getInputProps}) => (
               <section css={DropzoneSection} {...getRootProps()}>
                 <input {...getInputProps()} />
