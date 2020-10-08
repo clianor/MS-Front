@@ -6,7 +6,7 @@ import {errorAction} from "../../reducer/auth";
 function meApi(data: any) {
   const options: AxiosRequestConfig = {
     method: "POST",
-    url: "http://localhost:8000/api/auth/me",
+    url: `${process.env.ServerURL}/api/auth/me`,
     withCredentials: true,
   };
 

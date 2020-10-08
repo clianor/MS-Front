@@ -9,7 +9,7 @@ function registerApi(data: RegisterState) {
 
   const options: AxiosRequestConfig = {
     method: "POST",
-    url: "http://localhost:8000/api/auth/register",
+    url: `${process.env.ServerURL}/api/auth/register`,
     data: qs.stringify({
       email,
       password,

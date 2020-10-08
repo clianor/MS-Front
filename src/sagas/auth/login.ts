@@ -9,7 +9,7 @@ function loginApi(data: LoginState) {
 
   const options: AxiosRequestConfig = {
     method: "POST",
-    url: "http://localhost:8000/api/auth/login",
+    url: `${process.env.ServerURL}/api/auth/login`,
     data: qs.stringify({
       email,
       password,

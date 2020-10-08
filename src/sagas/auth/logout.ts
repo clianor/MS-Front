@@ -6,7 +6,7 @@ import {errorAction} from "../../reducer/auth";
 function logoutApi() {
   const options: AxiosRequestConfig = {
     method: "GET",
-    url: "http://localhost:8000/api/auth/logout",
+    url: `${process.env.ServerURL}/api/auth/logout`,
     withCredentials: true,
   }
 
