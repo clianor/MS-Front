@@ -1,11 +1,15 @@
 import em from "@emotion/styled";
 
-const ProductSection = () => {
+type ProductSectionProps = {
+  type: "create" | "manage";
+}
+
+const ProductSection = ({ type }: ProductSectionProps) => {
   return (
     <Section>
       <SectionHeader>
         <h5>제품</h5>
-        <p>추가</p>
+        {type === "create" && <p>추가</p>}
       </SectionHeader>
       <SectionSub>
         <div>정렬</div>
@@ -43,6 +47,12 @@ const Section = em.section`
   width: 20rem;
   height: 100%;
   border-right: 1px solid #dbdbdb;
+  overflow: hidden;
+  overflow-y: auto;
+  @media screen and (max-width: 992px) {
+    width: 100%;
+    height: 60%;
+  }
 `;
 
 const SectionHeader = em.header`

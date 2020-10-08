@@ -56,10 +56,12 @@ const Section = em.section`
   justify-content: center;
   width: calc(100% - 20rem);
   height: 100%;
+  @media screen and (max-width: 992px) {
+    width: 100%;
+  }
 `;
 
 const ContainerStyle = css`
-  overflow: hidden;
   padding: 1rem;
   width: 40rem;
   margin: 0 auto;
@@ -68,6 +70,15 @@ const ContainerStyle = css`
   & > figure:after { content: ''; display: block; padding-bottom: 100%; }
   & > figure > * { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
   & > div { width: 60%; height: 100%; float: left; text-align: left; padding-left: 0.4rem; }
+  @media screen and (max-width: 992px) {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    & > figure { width: 100%; }
+    & > div { width: 100%; margin-top: 1rem; margin-bottom: 2rem; min-height: 15rem; }
+  }
 `;
 
 const DropzoneSection = css`
