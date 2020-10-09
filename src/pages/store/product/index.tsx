@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Content from "../../../components/Layout/Content";
-import {useIsAuth} from "../../../shared/useIsAuth";
+import {useIsAuth} from "../../../hooks/useIsAuth";
 import {serverSideProps} from "../../../shared/serverSideAuth";
 import ProductCreateSection from "../../../containers/store/product/ProductCreateSection";
 import ProductLayout from "../../../containers/store/product/ProductLayout";

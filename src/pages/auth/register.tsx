@@ -3,7 +3,7 @@ import {jsx, css} from "@emotion/core";
 import Head from "next/head";
 import Content from "../../components/Layout/Content";
 import RegisterForm from "../../containers/auth/RegisterForm";
-import {useIsAuth} from "../../shared/useIsAuth";
+import {useIsAuth} from "../../hooks/useIsAuth";
 import {serverSideProps} from "../../shared/serverSideAuth";
 
 export default function Register(props: any) {

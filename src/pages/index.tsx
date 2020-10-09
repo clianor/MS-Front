@@ -4,7 +4,7 @@ import Head from "next/head";
 import {useRouter} from "next/router";
 import {jsx, css} from "@emotion/core";
 import Content from "../components/Layout/Content";
-import {useIsAuth} from "../shared/useIsAuth";
+import {useIsAuth} from "../hooks/useIsAuth";
 import {serverSideProps} from "../shared/serverSideAuth";
 
 

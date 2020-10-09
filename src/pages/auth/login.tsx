@@ -3,7 +3,7 @@ import {css, jsx} from "@emotion/core";
 import Head from "next/head";
 import Content from "../../components/Layout/Content";
 import LoginForm from "../../containers/auth/LoginForm";
-import {useIsAuth} from "../../shared/useIsAuth";
+import {useIsAuth} from "../../hooks/useIsAuth";
 import {serverSideProps} from "../../shared/serverSideAuth";
 
 export default function Login(props: any) {

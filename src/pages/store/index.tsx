@@ -2,7 +2,7 @@
 import Head from "next/head";
 import Content from "../../components/Layout/Content";
 import {jsx} from "@emotion/core";
-import {useIsAuth} from "../../shared/useIsAuth";
+import {useIsAuth} from "../../hooks/useIsAuth";
 import {serverSideProps} from "../../shared/serverSideAuth";
 
 export default function StoreHome(props: any) {

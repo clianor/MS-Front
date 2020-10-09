@@ -28,7 +28,7 @@ function* meSagaAction(action: any) {
       yield put(meSetAction(action.data));
     }
   } catch (error) {
-    yield put(errorAction(error.response.data));
+    yield put(errorAction(error.response ? error.response.data : {errors: []}));
   }
 }
 
