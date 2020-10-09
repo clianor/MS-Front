@@ -1,14 +1,15 @@
 /** @jsx jsx */
+import {MouseEvent} from "react";
 import {jsx, css} from "@emotion/core";
 import {useState} from "react";
 import em from "@emotion/styled";
-// import axios, {AxiosRequestConfig} from "axios";
 import Dropzone from "react-dropzone";
 import {BsPlusCircle} from "react-icons/bs";
-import Button from "../../../components/Button";
 import Row from "../../../components/Layout/Row";
+import Button from "../../../components/Button";
 import SearchDropdown from "../../../components/Dropdown/SearchDropdown";
 import TextArea from "../../../components/Input/TextArea";
+import Dialog from "../../../components/Dialog";
 
 const options = [
   "ml",
@@ -21,6 +22,23 @@ const options = [
 const ProductCreateSection = () => {
   const [value, setValue] = useState("");
   const [image, setImage] = useState<string>("");
+  const [dataDialog, setDataDialog] = useState({title: "", message: "", onCancelMessage: "", onSuccessMessage: ""});
+  const [showDialog, setShowDialog] = useState(false);
+
+  const onShowDialog = (event: MouseEvent<HTMLButtonElement>) => {
+    const buttonType = event.currentTarget.dataset["type"];
+
+    if (buttonType === "submit") {
+      setDataDialog({title: "제품 등록", message: "제품을 등록하시겠습니까?", onCancelMessage: "취소", onSuccessMessage: "등록"});
+    } else if (buttonType === "delete") {
+      setDataDialog({title: "제품 삭제", message: "제품을 삭제하시겠습니까?", onCancelMessage: "취소", onSuccessMessage: "삭제"});
+    }
+    setShowDialog(true);
+  };
+
+  const handleCancleDialog = () => {
+    setShowDialog(false);
+  };
 
   const onDrop = (files: any) => {
     let formData = new FormData();
@@ -35,6 +53,7 @@ const ProductCreateSection = () => {
 
   return (
     <Section>
+      {showDialog && <Dialog onCancel={handleCancleDialog} {...dataDialog} />}
       <div css={ContainerStyle}>
         <figure>
           {/* 10메가까지 업로드 가능하도록 제한 */}
@@ -43,7 +62,7 @@ const ProductCreateSection = () => {
               <section css={DropzoneSection} {...getRootProps()}>
                 <input {...getInputProps()} />
                 {image ? (
-                  <img src={image} alt="업로드 이미지" css={ImageStyle} />
+                  <img src={image} alt="업로드 이미지" css={ImageStyle}/>
                 ) : (
                   <BsPlusCircle style={{fontSize: "3rem"}}/>
                 )}
@@ -53,8 +72,8 @@ const ProductCreateSection = () => {
         </figure>
         <div css={rightPanel}>
           <Row size="small">
-            <Button theme="secondary" size="big" onClick={() => console.log("삭제")} css={delButton}>삭제</Button>
-            <Button theme="primary" size="big" onClick={() => console.log("등록")} css={submitButton}>등록</Button>
+            <Button theme="secondary" size="big" onClick={onShowDialog} css={delButton} data-type="delete">삭제</Button>
+            <Button theme="primary" size="big" onClick={onShowDialog} css={submitButton} data-type="submit">등록</Button>
           </Row>
           <div>
             <SearchDropdown value={value} setValue={setValue} placeholder="단위" options={options}/>
