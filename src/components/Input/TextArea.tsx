@@ -1,12 +1,19 @@
-import React, {TextareaHTMLAttributes} from "react";
+import React, {ChangeEvent, TextareaHTMLAttributes} from "react";
 import em from "@emotion/styled";
 
 type TextAreaProps = TextareaHTMLAttributes<HTMLTextAreaElement> & {
+  value: string;
+  setValue: Function;
+  placeholder?: string;
 };
 
-const TextArea = ({ ...rest }: TextAreaProps) => {
+const TextArea = ({ value, setValue, placeholder, ...rest }: TextAreaProps) => {
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(event.currentTarget.value);
+  };
+
   return (
-    <StyledTextArea {...rest} />
+    <StyledTextArea value={value} onChange={handleChange} placeholder={placeholder} {...rest} />
   );
 };
 

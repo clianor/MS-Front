@@ -8,7 +8,6 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
 }
 
 const Input = ({labelText, ...rest}: InputProps) => {
-
   return (
     <>
       {labelText && <label htmlFor={rest["id"]}>{labelText}</label>}
@@ -18,9 +17,15 @@ const Input = ({labelText, ...rest}: InputProps) => {
 }
 
 const StyledInput = em.input`
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #E6E9F4;
   box-sizing: border-box;
+  outline: none;
+  padding: 0.75rem 1rem;
+  font-family: inherit;
+  font-size: inherit;
 `;
 
 export default Input;

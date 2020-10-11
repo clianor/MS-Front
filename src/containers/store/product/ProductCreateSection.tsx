@@ -1,13 +1,15 @@
 /** @jsx jsx */
-import {MouseEvent} from "react";
 import {jsx, css} from "@emotion/core";
-import {useState} from "react";
-import em from "@emotion/styled";
+import {ChangeEvent, MouseEvent, useState} from "react";
 import Dropzone from "react-dropzone";
 import {BsPlusCircle} from "react-icons/bs";
+import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import em from "@emotion/styled";
+import qs from "qs";
 import Row from "../../../components/Layout/Row";
 import Button from "../../../components/Button";
 import SearchDropdown from "../../../components/Dropdown/SearchDropdown";
+import Input from "../../../components/Input";
 import TextArea from "../../../components/Input/TextArea";
 import Dialog from "../../../components/Dialog";
 
@@ -20,24 +22,87 @@ const options = [
 ];
 
 const ProductCreateSection = () => {
-  const [value, setValue] = useState("");
+  const [name, setName] = useState(""); // Name State
+  const [unit, setUnit] = useState(""); // Unit State
+  const [description, setDescription] = useState(""); // Description State
   const [image, setImage] = useState<string>("");
   const [dataDialog, setDataDialog] = useState({title: "", message: "", onCancelMessage: "", onSuccessMessage: ""});
-  const [showDialog, setShowDialog] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+  const [showSuccessDialog, setShowSuccessDialog] = useState(false);
+
+  const hideDialog = () => {
+    setShowDeleteDialog(false);
+    setShowSuccessDialog(false);
+  }
 
   const onShowDialog = (event: MouseEvent<HTMLButtonElement>) => {
     const buttonType = event.currentTarget.dataset["type"];
 
     if (buttonType === "submit") {
       setDataDialog({title: "제품 등록", message: "제품을 등록하시겠습니까?", onCancelMessage: "취소", onSuccessMessage: "등록"});
+      setShowSuccessDialog(true);
     } else if (buttonType === "delete") {
       setDataDialog({title: "제품 삭제", message: "제품을 삭제하시겠습니까?", onCancelMessage: "취소", onSuccessMessage: "삭제"});
+      setShowDeleteDialog(true);
     }
-    setShowDialog(true);
   };
 
   const handleCancleDialog = () => {
-    setShowDialog(false);
+    hideDialog();
+  };
+
+  const handleDeleteDialog = () => {
+    hideDialog();
+  };
+
+  const handleSuccessDialog = () => {
+    let isValid = true;
+    if (!name) {
+      // 제품명은 필수
+      isValid = false;
+      alert("제품명을 입력해주세요.");
+    }
+    else if (!unit) {
+      // 단위는 필수
+      isValid = false;
+      alert("단위를 입력해주세요.");
+    }
+
+    if (!isValid) {
+      hideDialog();
+      return;
+    }
+    
+    const options: AxiosRequestConfig = {
+      method: "POST",
+      url: `${process.env.ServerURL}/api/product`,
+      data: qs.stringify({
+        image,
+        name: name,
+        unit: unit,
+        description: description,
+      }),
+      timeout: 3000, // 3초 타임아웃
+      withCredentials: true,
+    }
+
+    axios(options)
+      .then((data: AxiosResponse) => {
+        setName("");
+        setUnit("");
+        setDescription("");
+        alert("제품 등록에 성공하였습니다.");
+      })
+      .catch((error) => {
+        alert("제품 등록에 실패하였습니다.\n다시시도해주세요.");
+      })
+      .finally(() => {
+        hideDialog();
+      });
+  };
+
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    setName(event.currentTarget.value);
   };
 
   const onDrop = (files: any) => {
@@ -53,7 +118,8 @@ const ProductCreateSection = () => {
 
   return (
     <Section>
-      {showDialog && <Dialog onCancel={handleCancleDialog} {...dataDialog} />}
+      {showDeleteDialog && <Dialog onCancel={handleCancleDialog} onSuccess={handleDeleteDialog} {...dataDialog} />}
+      {showSuccessDialog && <Dialog onCancel={handleCancleDialog} onSuccess={handleSuccessDialog} {...dataDialog} />}
       <div css={ContainerStyle}>
         <figure>
           {/* 10메가까지 업로드 가능하도록 제한 */}
@@ -76,10 +142,13 @@ const ProductCreateSection = () => {
             <Button theme="primary" size="big" onClick={onShowDialog} css={submitButton} data-type="submit">등록</Button>
           </Row>
           <div>
-            <SearchDropdown value={value} setValue={setValue} placeholder="단위" options={options}/>
+            <Input value={name} onChange={handleNameChange} placeholder="제품명" />
           </div>
           <div>
-            <TextArea placeholder="설명"/>
+            <SearchDropdown value={unit} setValue={setUnit} placeholder="단위" options={options}/>
+          </div>
+          <div>
+            <TextArea value={description} setValue={setDescription} placeholder="설명"/>
           </div>
         </div>
       </div>
@@ -100,7 +169,7 @@ const Section = em.section`
 
 const ContainerStyle = css`
   padding: 1rem;
-  width: 40rem;
+  width: 43rem;
   margin: 0 auto;
   margin-bottom: 8rem;
   & > figure { position: relative; width: 40%; float: left; }
