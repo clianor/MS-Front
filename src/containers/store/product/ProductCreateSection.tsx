@@ -3,9 +3,10 @@ import {jsx, css} from "@emotion/core";
 import {ChangeEvent, MouseEvent, useState} from "react";
 import Dropzone from "react-dropzone";
 import {BsPlusCircle} from "react-icons/bs";
-import axios, {AxiosRequestConfig, AxiosResponse} from "axios";
+import {AxiosRequestConfig, AxiosResponse} from "axios";
 import em from "@emotion/styled";
 import qs from "qs";
+import axiosInstance from "../../../shared/axiosInstance"
 import Row from "../../../components/Layout/Row";
 import Button from "../../../components/Button";
 import SearchDropdown from "../../../components/Dropdown/SearchDropdown";
@@ -75,18 +76,16 @@ const ProductCreateSection = () => {
     
     const options: AxiosRequestConfig = {
       method: "POST",
-      url: `${process.env.ServerURL}/api/product`,
+      url: "/api/product",
       data: qs.stringify({
         image,
         name: name,
         unit: unit,
         description: description,
       }),
-      timeout: 3000, // 3초 타임아웃
-      withCredentials: true,
     }
 
-    axios(options)
+    axiosInstance(options)
       .then((data: AxiosResponse) => {
         setName("");
         setUnit("");

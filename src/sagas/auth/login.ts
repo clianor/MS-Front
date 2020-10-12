@@ -1,6 +1,7 @@
 import {takeLatest, call, put} from "@redux-saga/core/effects";
 import {LOGIN_REQUEST, LoginState, loginSuccessAction} from "../../reducer/auth/login";
-import axios, {AxiosRequestConfig} from "axios";
+import {AxiosRequestConfig} from "axios";
+import axiosInstance from "../../shared/axiosInstance";
 import {errorAction} from "../../reducer/auth";
 import qs from 'qs';
 
@@ -9,15 +10,14 @@ function loginApi(data: LoginState) {
 
   const options: AxiosRequestConfig = {
     method: "POST",
-    url: `${process.env.ServerURL}/api/auth/login`,
+    url:"/api/auth/login",
     data: qs.stringify({
       email,
       password,
     }),
-    withCredentials: true,
   }
 
-  return axios(options);
+  return axiosInstance(options);
 }
 
 function* loginSagaAction(action: any) {

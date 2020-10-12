@@ -1,16 +1,16 @@
 import {call, put, takeLatest} from "@redux-saga/core/effects";
 import {LOGOUT_REQUEST, logoutSuccessAction} from "../../reducer/auth/logout";
-import axios, {AxiosRequestConfig} from "axios";
+import {AxiosRequestConfig} from "axios";
+import axiosInstance from "../../shared/axiosInstance";
 import {errorAction} from "../../reducer/auth";
 
 function logoutApi() {
   const options: AxiosRequestConfig = {
     method: "GET",
-    url: `${process.env.ServerURL}/api/auth/logout`,
-    withCredentials: true,
+    url: "/api/auth/logout",
   }
 
-  return axios(options);
+  return axiosInstance(options);
 }
 
 function* logoutSagaAction() {

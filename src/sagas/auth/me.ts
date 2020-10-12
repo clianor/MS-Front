@@ -1,13 +1,13 @@
 import {call, put, takeLatest} from "@redux-saga/core/effects";
 import {ME_REQUEST, ME_SET, meSetAction, meSuccessAction} from "../../reducer/auth/me";
-import axios, {AxiosRequestConfig} from "axios";
+import {AxiosRequestConfig} from "axios";
+import axiosInstance from "../../shared/axiosInstance";
 import {errorAction} from "../../reducer/auth";
 
 function meApi(data: any) {
   const options: AxiosRequestConfig = {
     method: "POST",
-    url: `${process.env.ServerURL}/api/auth/me`,
-    withCredentials: true,
+    url: "/api/auth/me",
   };
 
   if (data?.cookie) {
@@ -16,7 +16,7 @@ function meApi(data: any) {
     };
   }
 
-  return axios(options);
+  return axiosInstance(options);
 }
 
 function* meSagaAction(action: any) {

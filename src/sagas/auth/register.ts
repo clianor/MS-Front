@@ -1,6 +1,7 @@
 import {takeLatest, call, put} from "@redux-saga/core/effects";
 import {REGISTER_REQUEST, RegisterState, registerSuccessAction} from "../../reducer/auth/register";
-import axios, {AxiosRequestConfig} from "axios";
+import {AxiosRequestConfig} from "axios";
+import axiosInstance from "../../shared/axiosInstance";
 import {errorAction} from "../../reducer/auth";
 import qs from 'qs';
 
@@ -9,17 +10,16 @@ function registerApi(data: RegisterState) {
 
   const options: AxiosRequestConfig = {
     method: "POST",
-    url: `${process.env.ServerURL}/api/auth/register`,
+    url: "/api/auth/register",
     data: qs.stringify({
       email,
       password,
       passwordConfirm,
       companyName,
     }),
-    withCredentials: true,
   }
 
-  return axios(options);
+  return axiosInstance(options);
 }
 
 function* registerSagaAction(action: any) {
